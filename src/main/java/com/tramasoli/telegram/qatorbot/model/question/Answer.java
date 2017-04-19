@@ -26,10 +26,6 @@ public class Answer implements Serializable {
         this.text = text;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     public Question getQuestion() {
         return question;
     }
