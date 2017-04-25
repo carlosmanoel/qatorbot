@@ -1,5 +1,6 @@
 package com.tramasoli.telegram.qatorbot.model.question;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,16 +10,35 @@ import java.util.function.Predicate;
 /**
  * Created by fabio on 18/04/17.
  */
+@Entity
 public class Question implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @Column(name = "id_answer")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
     @NotNull
     private String text;
+
+    @ManyToOne
+    private User user;
+
+    @OneToMany(mappedBy = "question")
     private List<Answer> answers;
 
     public Question() {
         this.answers = new ArrayList<>();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getText() {
@@ -33,13 +53,16 @@ public class Question implements Serializable {
         return answers;
     }
 
-    public void setAnswers(List<Answer> answers) {
-        this.answers = answers;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public boolean isAnswered() {
-        Predicate<Answer> correct = a -> a.isAccepted();
-        return getAnswers().stream().anyMatch(correct);
+        return getAnswers().stream().anyMatch(a -> a.isAccepted());
     }
 
     @Override
