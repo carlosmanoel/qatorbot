@@ -11,6 +11,9 @@ public class Chat {
 
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @Column(name = "id_chat")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private String name;
