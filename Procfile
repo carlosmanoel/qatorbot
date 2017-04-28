@@ -1,0 +1,1 @@
+worker: java -jar target/uber-qatorbot*.jar
