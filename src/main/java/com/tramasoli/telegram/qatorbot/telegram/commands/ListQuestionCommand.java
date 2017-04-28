@@ -39,8 +39,8 @@ public class ListQuestionCommand extends BotCommand {
             em.close();
             SendMessage message = new SendMessage();
             message.setChatId(chat.getId());
-            message.setText("Hello, @" + user.getUserName() + "! We have these questions:" +
-                     String.join("\t\n",questions.stream().map(a -> a.getText() + "- asked by " + a.getUser().getUsername()).toArray(String[]::new)));
+            message.setText("Hello, @" + user.getUserName() + "! We have these questions:\n" +
+                     String.join("\n\t",questions.stream().map(a -> a.getText() + "- asked by @" + a.getUser().getUsername()).toArray(String[]::new)));
 
             absSender.sendMessage(message);
         } catch (Exception e) {
