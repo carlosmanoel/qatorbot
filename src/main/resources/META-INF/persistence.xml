@@ -12,14 +12,12 @@
         <class>com.tramasoli.telegram.qatorbot.model.question.Answer</class>
 
         <properties>
-
             <property name="hibernate.hbm2ddl.auto" value="create"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="false"/>
             <property name="hibernate.dialect" value="${db.dialect}"/>
             <property name="javax.persistence.jdbc.driver" value="${db.driver}"/>
             <property name="javax.persistence.jdbc.url" value="${db.url}"/>
-
         </properties>
 
     </persistence-unit>
