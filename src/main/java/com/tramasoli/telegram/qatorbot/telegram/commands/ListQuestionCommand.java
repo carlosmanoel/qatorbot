@@ -15,6 +15,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import javax.persistence.EntityManager;
 import java.util.Arrays;
 import java.util.List;
+import java.util.StringJoiner;
 
 /**
  * Created by fabio on 24/04/17.
@@ -38,8 +39,8 @@ public class ListQuestionCommand extends BotCommand {
             em.close();
             SendMessage message = new SendMessage();
             message.setChatId(chat.getId());
-            message.setText("Hello, @" + user.getUserName() + "! We have these questions:\n" +
-                    questions.stream().map(a -> a.getText() + "- asked by " + a.getUser().getUsername() + "\n"));
+            message.setText("Hello, @" + user.getUserName() + "! We have these questions:" +
+                     String.join("\t\n",questions.stream().map(a -> a.getText() + "- asked by " + a.getUser().getUsername()).toArray(String[]::new)));
 
             absSender.sendMessage(message);
         } catch (Exception e) {
