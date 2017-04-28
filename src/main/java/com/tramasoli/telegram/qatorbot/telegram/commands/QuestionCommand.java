@@ -51,7 +51,7 @@ public class QuestionCommand extends BotCommand {
             message.setText("Question [" + question.getText() + "] added! Id: [" + question.getId() + "]");
             absSender.sendMessage(message);
         } catch (Exception e) {
-            BotLogger.error("OK", e.getStackTrace().toString());
+            e.printStackTrace();
             BotLogger.error("OK", e.getMessage());
         }
     }

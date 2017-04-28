@@ -44,7 +44,7 @@ public class ListQuestionCommand extends BotCommand {
 
             absSender.sendMessage(message);
         } catch (Exception e) {
-            BotLogger.error("OK", e.getStackTrace().toString());
+            e.printStackTrace();
             BotLogger.error("OK", e.getMessage());
         }
     }
