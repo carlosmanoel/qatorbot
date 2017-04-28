@@ -15,6 +15,7 @@ public class Answer implements Serializable {
     @Id
     @Column(name = "id_answer")
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
     @NotNull
     private String text;
@@ -30,6 +31,14 @@ public class Answer implements Serializable {
     @NotNull
     @ManyToOne
     private Question question;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getText() {
         return text;

@@ -16,7 +16,7 @@ public class Question implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "id_answer")
+    @Column(name = "id_question")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
@@ -28,6 +28,9 @@ public class Question implements Serializable {
 
     @OneToMany(mappedBy = "question")
     private List<Answer> answers;
+
+    @ManyToOne
+    private Chat chat;
 
     public Question() {
         this.answers = new ArrayList<>();
@@ -59,6 +62,14 @@ public class Question implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Chat getChat() {
+        return chat;
+    }
+
+    public void setChat(Chat chat) {
+        this.chat = chat;
     }
 
     public boolean isAnswered() {

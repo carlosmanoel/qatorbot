@@ -2,6 +2,7 @@ package com.tramasoli.telegram.qatorbot.model.question;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by fabio on 18/04/17.
@@ -12,11 +13,14 @@ public class User implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "id_answer")
+    @Column(name = "id_user")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private String username;
+
+    @OneToMany(mappedBy = "user")
+    private List<Question> questions;
 
     public int getId() {
         return id;
@@ -32,5 +36,9 @@ public class User implements Serializable{
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
     }
 }

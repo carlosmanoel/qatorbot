@@ -8,11 +8,13 @@ import org.telegram.telegrambots.api.objects.Chat;
 import org.telegram.telegrambots.api.objects.User;
 import org.telegram.telegrambots.bots.AbsSender;
 import org.telegram.telegrambots.bots.commands.BotCommand;
+import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.logging.BotLogger;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.persistence.EntityManager;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by fabio on 24/04/17.
@@ -25,6 +27,23 @@ public class ListQuestionCommand extends BotCommand {
 
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
-        throw new NotImplementedException();
+        BotLogger.info("OK",String.join(" ", Arrays.asList(strings)));
+        EntityManager em = DAO.getEntityManager();
+        List<Question> questions =
+                em.createQuery("SELECT q FROM Question c WHERE q.chat LIKE :chat")
+                .setParameter("chat", chat.getId())
+                .setMaxResults(10)
+                .getResultList();
+        em.close();
+        SendMessage message = new SendMessage();
+        message.setChatId(chat.getId());
+        message.setText("Hello, @"+user.getUserName()+"! We have these questions:\n"+
+                        questions.stream().map(a -> a.getText()+"- asked by "+a.getUser().getUsername()+"\n"));
+        try {
+            absSender.sendMessage(message);
+        } catch (TelegramApiException e) {
+            BotLogger.error("OK",e.getStackTrace().toString());
+            BotLogger.error("OK",e.getMessage());
+        }
     }
 }
