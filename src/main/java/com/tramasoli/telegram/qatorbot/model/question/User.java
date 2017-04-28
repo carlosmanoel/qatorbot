@@ -13,8 +13,6 @@ public class User implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "id_user")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private String username;
