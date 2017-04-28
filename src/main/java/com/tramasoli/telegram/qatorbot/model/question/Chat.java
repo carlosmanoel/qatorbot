@@ -16,7 +16,7 @@ public class Chat {
 
     private String name;
 
-    @OneToMany(mappedBy = "chat")
+    @OneToMany(mappedBy = "chat", cascade = {CascadeType.ALL})
     private List<Question> questions;
 
     public long getId() {

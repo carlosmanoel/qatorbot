@@ -18,7 +18,7 @@ public class User implements Serializable{
 
     private String username;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade = {CascadeType.ALL})
     private List<Question> questions;
 
     public int getId() {

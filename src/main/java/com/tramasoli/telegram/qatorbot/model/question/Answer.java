@@ -20,16 +20,16 @@ public class Answer implements Serializable {
     @NotNull
     private String text;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     private User acceptedBy;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     private User answerer;
 
     private boolean accepted = false;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Question question;
 
     public int getId() {
