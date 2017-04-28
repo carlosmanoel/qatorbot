@@ -31,7 +31,7 @@ public class ListQuestionCommand extends BotCommand {
             BotLogger.info("OK", String.join(" ", Arrays.asList(strings)));
             EntityManager em = DAO.getEntityManager();
             List<Question> questions =
-                    em.createQuery("SELECT q FROM Question c WHERE q.chat LIKE :chat")
+                    em.createQuery("SELECT q FROM Question q WHERE q.chat LIKE :chat")
                             .setParameter("chat", chat.getId())
                             .setMaxResults(10)
                             .getResultList();
