@@ -4,6 +4,7 @@ package com.tramasoli.telegram.qatorbot.telegram;
  * Created by fabio on 18/04/17.
  */
 
+import com.tramasoli.telegram.qatorbot.telegram.commands.ListQuestionCommand;
 import com.tramasoli.telegram.qatorbot.telegram.commands.QuestionCommand;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
@@ -23,7 +24,9 @@ public class QAtorBot extends TelegramLongPollingCommandBot {
             "Call me with /help@qatorbot if you need anything!";
 
     public QAtorBot() {
+
         register(new QuestionCommand());
+        register(new ListQuestionCommand());
     }
 
     @Override
