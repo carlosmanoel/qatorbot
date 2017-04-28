@@ -15,7 +15,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <db.url>${env.JDBC_DATABASE_URL}</db.url>
+                <db.url><![CDATA[${env.JDBC_DATABASE_URL}]]></db.url>
                 <db.driver>org.postgresql.Driver</db.driver>
                 <db.dialect>org.hibernate.dialect.PostgreSQLDialect</db.dialect>
             </properties>
