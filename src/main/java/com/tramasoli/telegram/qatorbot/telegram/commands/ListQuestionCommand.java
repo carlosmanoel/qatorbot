@@ -27,23 +27,24 @@ public class ListQuestionCommand extends BotCommand {
 
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
-        BotLogger.info("OK",String.join(" ", Arrays.asList(strings)));
-        EntityManager em = DAO.getEntityManager();
-        List<Question> questions =
-                em.createQuery("SELECT q FROM Question c WHERE q.chat LIKE :chat")
-                .setParameter("chat", chat.getId())
-                .setMaxResults(10)
-                .getResultList();
-        em.close();
-        SendMessage message = new SendMessage();
-        message.setChatId(chat.getId());
-        message.setText("Hello, @"+user.getUserName()+"! We have these questions:\n"+
-                        questions.stream().map(a -> a.getText()+"- asked by "+a.getUser().getUsername()+"\n"));
         try {
+            BotLogger.info("OK", String.join(" ", Arrays.asList(strings)));
+            EntityManager em = DAO.getEntityManager();
+            List<Question> questions =
+                    em.createQuery("SELECT q FROM Question c WHERE q.chat LIKE :chat")
+                            .setParameter("chat", chat.getId())
+                            .setMaxResults(10)
+                            .getResultList();
+            em.close();
+            SendMessage message = new SendMessage();
+            message.setChatId(chat.getId());
+            message.setText("Hello, @" + user.getUserName() + "! We have these questions:\n" +
+                    questions.stream().map(a -> a.getText() + "- asked by " + a.getUser().getUsername() + "\n"));
+
             absSender.sendMessage(message);
-        } catch (TelegramApiException e) {
-            BotLogger.error("OK",e.getStackTrace().toString());
-            BotLogger.error("OK",e.getMessage());
+        } catch (Exception e) {
+            BotLogger.error("OK", e.getStackTrace().toString());
+            BotLogger.error("OK", e.getMessage());
         }
     }
 }

@@ -25,33 +25,32 @@ public class QuestionCommand extends BotCommand {
 
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
-
-        BotLogger.info("OK", String.join(" ", Arrays.asList(strings)));
-        EntityManager em = DAO.getEntityManager();
-        Question question = new Question();
-        com.tramasoli.telegram.qatorbot.model.question.User asker = new com.tramasoli.telegram.qatorbot.model.question.User();
-        asker.setUsername(user.getUserName());
-        asker.setId(user.getId());
-        com.tramasoli.telegram.qatorbot.model.question.Chat questionChat = new com.tramasoli.telegram.qatorbot.model.question.Chat();
-        questionChat.setId(chat.getId());
-        questionChat.setName(chat.getTitle());
-        asker.setUsername(user.getUserName());
-        asker.setId(user.getId());
-        question.setText(String.join(" ", Arrays.asList(strings)));
-        em.getTransaction().begin();
-        em.merge(asker);
-        em.merge(questionChat);
-        question.setChat(questionChat);
-        question.setUser(asker);
-        em.persist(question);
-        em.getTransaction().commit();
-        em.close();
-        SendMessage message = new SendMessage();
-        message.setChatId(chat.getId());
-        message.setText("Question [" + question.getText() + "] added! Id: [" + question.getId() + "]");
         try {
+            BotLogger.info("OK", String.join(" ", Arrays.asList(strings)));
+            EntityManager em = DAO.getEntityManager();
+            Question question = new Question();
+            com.tramasoli.telegram.qatorbot.model.question.User asker = new com.tramasoli.telegram.qatorbot.model.question.User();
+            asker.setUsername(user.getUserName());
+            asker.setId(user.getId());
+            com.tramasoli.telegram.qatorbot.model.question.Chat questionChat = new com.tramasoli.telegram.qatorbot.model.question.Chat();
+            questionChat.setId(chat.getId());
+            questionChat.setName(chat.getTitle());
+            asker.setUsername(user.getUserName());
+            asker.setId(user.getId());
+            question.setText(String.join(" ", Arrays.asList(strings)));
+            em.getTransaction().begin();
+            em.merge(asker);
+            em.merge(questionChat);
+            question.setChat(questionChat);
+            question.setUser(asker);
+            em.persist(question);
+            em.getTransaction().commit();
+            em.close();
+            SendMessage message = new SendMessage();
+            message.setChatId(chat.getId());
+            message.setText("Question [" + question.getText() + "] added! Id: [" + question.getId() + "]");
             absSender.sendMessage(message);
-        } catch (TelegramApiException e) {
+        } catch (Exception e) {
             BotLogger.error("OK", e.getStackTrace().toString());
             BotLogger.error("OK", e.getMessage());
         }
