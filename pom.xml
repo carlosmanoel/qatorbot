@@ -8,6 +8,28 @@
     <artifactId>qatorbot</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <profiles>
+        <profile>
+            <id>Heroku</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <db.url>${env.DATABASE_URL}</db.url>
+                <db.driver>org.postgresql.Driver</db.driver>
+                <db.dialect>org.hibernate.dialect.PostgreSQLDialect</db.dialect>
+            </properties>
+        </profile>
+        <profile>
+            <id>local</id>
+            <properties>
+                <db.url>jdbc:sqlite:qatorbot.db</db.url>
+                <db.driver>org.sqlite.JDBC</db.driver>
+                <db.dialect>com.tramasoli.telegram.qatorbot.jpa.SQLiteDialect</db.dialect>
+            </properties>
+        </profile>
+    </profiles>
+
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -56,6 +78,11 @@
             <artifactId>javax.el</artifactId>
             <version>2.2.4</version>
         </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.4.1208</version>
+        </dependency>
         <!-- SQLite database JDBC -->
         <dependency>
             <groupId>org.xerial</groupId>
@@ -65,6 +92,12 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

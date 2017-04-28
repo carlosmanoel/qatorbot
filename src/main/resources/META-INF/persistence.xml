@@ -13,13 +13,12 @@
 
         <properties>
 
-            <property name="hibernate.dialect" value="com.tramasoli.telegram.qatorbot.jpa.SQLiteDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="create"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="false"/>
-
-            <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:qatorbot.db"/>
+            <property name="hibernate.dialect" value="${db.dialect}"/>
+            <property name="javax.persistence.jdbc.driver" value="${db.driver}"/>
+            <property name="javax.persistence.jdbc.url" value="${db.url}"/>
 
         </properties>
 
