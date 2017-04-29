@@ -43,7 +43,7 @@ public class QuestionCommand extends BotCommand {
             em.getTransaction().begin();
             em.merge(asker);
             em.merge(questionChat);
-            em.persist(question);
+            em.merge(question);
             em.getTransaction().commit();
             em.close();
             SendMessage message = new SendMessage();
