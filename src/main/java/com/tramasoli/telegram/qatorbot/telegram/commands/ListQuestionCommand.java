@@ -32,7 +32,7 @@ public class ListQuestionCommand extends BotCommand {
             BotLogger.info("OK", String.join(" ", Arrays.asList(strings)));
             EntityManager em = DAO.getEntityManager();
             List<Question> questions =
-                    em.createQuery("SELECT q FROM Question q INNER JOIN Chat c WHERE c.telegramchatid = :chat")
+                    em.createQuery("SELECT q FROM Question q INNER JOIN q.chat c WHERE c.telegramchatid = :chat")
                             .setParameter("chat", chat.getId())
                             .setMaxResults(10)
                             .getResultList();
