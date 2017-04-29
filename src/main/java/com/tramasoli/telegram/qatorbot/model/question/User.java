@@ -52,7 +52,7 @@ public class User implements Serializable{
 
     public void addQuestion(Question question)
     {
-        if(acceptedAnswers.contains(question)) {
+        if(questions.contains(question)) {
             return;
         }
         questions.add(question);
