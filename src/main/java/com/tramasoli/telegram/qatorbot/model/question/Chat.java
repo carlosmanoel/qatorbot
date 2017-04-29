@@ -1,5 +1,7 @@
 package com.tramasoli.telegram.qatorbot.model.question;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,7 +24,8 @@ public class Chat implements Serializable{
 
     private String name;
 
-    @OneToMany(mappedBy = "chat", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "chat")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<Question> questions = new ArrayList<>();
 
     public long getId() {

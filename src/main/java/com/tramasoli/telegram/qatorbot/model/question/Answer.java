@@ -1,5 +1,7 @@
 package com.tramasoli.telegram.qatorbot.model.question;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -20,16 +22,19 @@ public class Answer implements Serializable {
     @NotNull
     private String text;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private User acceptedBy;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private User answerer;
 
     private boolean accepted = false;
 
     @NotNull
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Question question;
 
     public int getId() {

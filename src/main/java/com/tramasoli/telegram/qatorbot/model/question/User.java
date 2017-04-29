@@ -1,5 +1,7 @@
 package com.tramasoli.telegram.qatorbot.model.question;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,13 +23,16 @@ public class User implements Serializable{
 
     private String username;
 
-    @OneToMany(mappedBy = "user",cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "user")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<Question> questions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "acceptedBy",cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "acceptedBy")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<Answer> acceptedAnswers = new ArrayList<>();;
 
-    @OneToMany(mappedBy = "answerer",cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "answerer")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<Answer> answers = new ArrayList<>();;
 
     public int getId() {
