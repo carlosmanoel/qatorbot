@@ -29,7 +29,7 @@ public class Question implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
-    @OneToMany(mappedBy = "question")//, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();;
 
     @ManyToOne(cascade = CascadeType.ALL)
