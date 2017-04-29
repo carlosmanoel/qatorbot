@@ -23,16 +23,13 @@ public class User implements Serializable{
 
     private String username;
 
-    @OneToMany(mappedBy = "user")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Question> questions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "acceptedBy")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @OneToMany(mappedBy = "acceptedBy", cascade = CascadeType.ALL)
     private List<Answer> acceptedAnswers = new ArrayList<>();;
 
-    @OneToMany(mappedBy = "answerer")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @OneToMany(mappedBy = "answerer", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();;
 
     public int getId() {

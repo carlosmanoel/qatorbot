@@ -3,6 +3,7 @@ package com.tramasoli.telegram.qatorbot.model.question;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -25,16 +26,13 @@ public class Question implements Serializable {
     @NotNull
     private String text;
 
-    @ManyToOne
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
-    @OneToMany(mappedBy = "question")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();;
 
-    @ManyToOne
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Chat chat;
 
     public Question() {

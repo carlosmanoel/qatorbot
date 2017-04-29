@@ -24,8 +24,7 @@ public class Chat implements Serializable{
 
     private String name;
 
-    @OneToMany(mappedBy = "chat")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL)
     private List<Question> questions = new ArrayList<>();
 
     public long getId() {
