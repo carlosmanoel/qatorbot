@@ -27,7 +27,7 @@ public class Question implements Serializable {
     private User user;
 
     @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})
-    private List<Answer> answers;
+    private List<Answer> answers = new ArrayList<>();;
 
     @ManyToOne(cascade = {CascadeType.ALL})
     private Chat chat;

@@ -22,13 +22,13 @@ public class User implements Serializable{
     private String username;
 
     @OneToMany(mappedBy = "user",cascade = {CascadeType.ALL})
-    private List<Question> questions;
+    private List<Question> questions = new ArrayList<>();
 
     @OneToMany(mappedBy = "acceptedBy",cascade = {CascadeType.ALL})
-    private List<Answer> acceptedAnswers;
+    private List<Answer> acceptedAnswers = new ArrayList<>();;
 
     @OneToMany(mappedBy = "answerer",cascade = {CascadeType.ALL})
-    private List<Answer> answers;
+    private List<Answer> answers = new ArrayList<>();;
 
     public int getId() {
         return id;
