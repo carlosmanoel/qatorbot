@@ -26,13 +26,13 @@ public class Question implements Serializable {
     @NotNull
     private String text;
 
-    @ManyToOne//(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
     @OneToMany(mappedBy = "question")//, cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();;
 
-    @ManyToOne//(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Chat chat;
 
     public Question() {
