@@ -37,12 +37,12 @@ public class QuestionCommand extends BotCommand {
             questionChat.setName(chat.getTitle());
             asker.setUsername(user.getUserName());
             asker.setId(user.getId());
-            question.setChat(questionChat);
-            question.setUser(asker);
             question.setText(String.join(" ", Arrays.asList(strings)));
             em.getTransaction().begin();
             questionChat = em.merge(questionChat);
             asker = em.merge(asker);
+            question.setChat(questionChat);
+            question.setUser(asker);
             question = em.merge(question);
             em.getTransaction().commit();
             em.close();
