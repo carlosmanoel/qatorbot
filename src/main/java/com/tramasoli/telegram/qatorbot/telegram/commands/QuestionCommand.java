@@ -13,6 +13,7 @@ import org.telegram.telegrambots.logging.BotLogger;
 
 import javax.persistence.EntityManager;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by fabio on 24/04/17.
@@ -29,10 +30,29 @@ public class QuestionCommand extends BotCommand {
             BotLogger.info("OK", String.join(" ", Arrays.asList(strings)));
             EntityManager em = DAO.getEntityManager();
             Question question = new Question();
-            com.tramasoli.telegram.qatorbot.model.question.User asker = new com.tramasoli.telegram.qatorbot.model.question.User();
-            asker.setUsername(user.getUserName());
-            asker.setId(user.getId());
-            com.tramasoli.telegram.qatorbot.model.question.Chat questionChat = new com.tramasoli.telegram.qatorbot.model.question.Chat();
+            com.tramasoli.telegram.qatorbot.model.question.User asker;
+            com.tramasoli.telegram.qatorbot.model.question.Chat questionChat;
+            try {
+                asker =
+                        (com.tramasoli.telegram.qatorbot.model.question.User)
+                                em.createQuery("SELECT u FROM User u WHERE u.userName = :userName")
+                                        .setParameter("userName", user.getUserName())
+                                        .setMaxResults(1)
+                                        .getSingleResult();
+            } catch (Exception e) {
+                asker = new com.tramasoli.telegram.qatorbot.model.question.User();
+                asker.setUsername(user.getUserName());
+            }
+            try {
+                questionChat =
+                        (com.tramasoli.telegram.qatorbot.model.question.Chat)
+                                em.createQuery("SELECT c FROM Chat c WHERE c.telegramChatId = :telegramChatId")
+                                        .setParameter("telegramChatId", chat.getId())
+                                        .setMaxResults(1)
+                                        .getSingleResult();
+            } catch(Exception e) {
+                questionChat = new com.tramasoli.telegram.qatorbot.model.question.Chat();
+            }
             questionChat.setTelegramChatId(chat.getId());
             questionChat.setName(chat.getTitle());
             asker.setUsername(user.getUserName());
