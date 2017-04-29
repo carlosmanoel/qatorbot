@@ -1,6 +1,7 @@
 package com.tramasoli.telegram.qatorbot.model.question;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import java.util.List;
  * Created by fabio on 27/04/17.
  */
 @Entity
-public class Chat {
+public class Chat implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
@@ -16,6 +17,8 @@ public class Chat {
     @Column(name = "id_chat")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    private long telegramChatId;
 
     private String name;
 
@@ -28,6 +31,14 @@ public class Chat {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getTelegramChatId() {
+        return telegramChatId;
+    }
+
+    public void setTelegramChatId(long telegramChatId) {
+        this.telegramChatId = telegramChatId;
     }
 
     public String getName() {
