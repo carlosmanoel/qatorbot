@@ -53,7 +53,25 @@ public class Question implements Serializable {
     }
 
     public List<Answer> getAnswers() {
-        return answers;
+        return new ArrayList<Answer>(answers);
+    }
+
+    public void addAnswer(Answer answer)
+    {
+        if(answers.contains(answer)) {
+            return;
+        }
+        answers.add(answer);
+        answer.setQuestion(this);
+    }
+
+    public void removeAnswer(Answer answer)
+    {
+        if(!answers.contains(answer)) {
+            return;
+        }
+        answers.remove(answer);
+        answer.setQuestion(null);
     }
 
     public User getUser() {
@@ -61,7 +79,15 @@ public class Question implements Serializable {
     }
 
     public void setUser(User user) {
-        this.user = user;
+        if (user.equals(this.user)) {
+            return;
+        }
+        if (this.user!=null) {
+            this.user.removeQuestion(this);
+        }
+        if (user!=null) {
+            user.addQuestion(this);
+        }
     }
 
     public Chat getChat() {
@@ -69,7 +95,15 @@ public class Question implements Serializable {
     }
 
     public void setChat(Chat chat) {
-        this.chat = chat;
+        if (chat.equals(this.chat)) {
+            return;
+        }
+        if (this.chat!=null) {
+            this.chat.removeQuestion(this);
+        }
+        if (chat!=null) {
+            chat.addQuestion(this);
+        }
     }
 
     public boolean isAnswered() {

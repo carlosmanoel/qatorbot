@@ -53,7 +53,15 @@ public class Answer implements Serializable {
     }
 
     public void setQuestion(Question question) {
-        this.question = question;
+        if (question.equals(this.question)) {
+            return;
+        }
+        if (this.question!=null) {
+            this.question.removeAnswer(this);
+        }
+        if (question!=null) {
+            question.addAnswer(this);
+        }
     }
 
     public boolean isAccepted() {
@@ -69,7 +77,15 @@ public class Answer implements Serializable {
     }
 
     public void setAcceptedBy(User acceptedBy) {
-        this.acceptedBy = acceptedBy;
+        if (acceptedBy.equals(this.acceptedBy)) {
+            return;
+        }
+        if (this.acceptedBy!=null) {
+            this.acceptedBy.removeAcceptedAnswer(this);
+        }
+        if (acceptedBy!=null) {
+            acceptedBy.addAcceptedAnswer(this);
+        }
     }
 
     public User getAnswerer() {
@@ -77,6 +93,14 @@ public class Answer implements Serializable {
     }
 
     public void setAnswerer(User answerer) {
-        this.answerer = answerer;
+        if (answerer.equals(this.answerer)) {
+            return;
+        }
+        if (this.answerer!=null) {
+            this.answerer.removeAnswer(this);
+        }
+        if (answerer!=null) {
+            answerer.addAnswer(this);
+        }
     }
 }

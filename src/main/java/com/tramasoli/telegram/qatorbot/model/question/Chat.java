@@ -1,6 +1,7 @@
 package com.tramasoli.telegram.qatorbot.model.question;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class Chat {
     private String name;
 
     @OneToMany(mappedBy = "chat", cascade = {CascadeType.ALL})
-    private List<Question> questions;
+    private List<Question> questions = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -37,7 +38,25 @@ public class Chat {
         this.name = name;
     }
 
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
+    public List<Question> getQuestions() {
+        return new ArrayList<Question>(questions);
+    }
+
+    public void addQuestion(Question question)
+    {
+        if(questions.contains(question)) {
+            return;
+        }
+        questions.add(question);
+        question.setChat(this);
+    }
+
+    public void removeQuestion(Question question)
+    {
+        if(!questions.contains(question)) {
+            return;
+        }
+        questions.remove(question);
+        question.setChat(null);
     }
 }

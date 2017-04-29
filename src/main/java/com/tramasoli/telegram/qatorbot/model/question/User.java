@@ -2,6 +2,7 @@ package com.tramasoli.telegram.qatorbot.model.question;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +24,12 @@ public class User implements Serializable{
     @OneToMany(mappedBy = "user",cascade = {CascadeType.ALL})
     private List<Question> questions;
 
+    @OneToMany(mappedBy = "acceptedBy",cascade = {CascadeType.ALL})
+    private List<Answer> acceptedAnswers;
+
+    @OneToMany(mappedBy = "answerer",cascade = {CascadeType.ALL})
+    private List<Answer> answers;
+
     public int getId() {
         return id;
     }
@@ -40,6 +47,70 @@ public class User implements Serializable{
     }
 
     public List<Question> getQuestions() {
-        return questions;
+        return new ArrayList<Question>(questions);
     }
+
+    public void addQuestion(Question question)
+    {
+        if(acceptedAnswers.contains(question)) {
+            return;
+        }
+        questions.add(question);
+        question.setUser(this);
+    }
+
+    public void removeQuestion(Question question)
+    {
+        if(!questions.contains(question)) {
+            return;
+        }
+        questions.remove(question);
+        question.setUser(null);
+    }
+
+    public List<Answer> getAcceptedAnswers() {
+        return new ArrayList<Answer>(acceptedAnswers);
+    }
+
+    public void addAcceptedAnswer(Answer acceptedAnswer)
+    {
+        if(acceptedAnswers.contains(acceptedAnswer)) {
+            return;
+        }
+        acceptedAnswers.add(acceptedAnswer);
+        acceptedAnswer.setAcceptedBy(this);
+    }
+
+    public void removeAcceptedAnswer(Answer acceptedAnswer)
+    {
+        if(!acceptedAnswers.contains(acceptedAnswer)) {
+            return;
+        }
+        acceptedAnswers.remove(acceptedAnswer);
+        acceptedAnswer.setAcceptedBy(null);
+    }
+
+    public List<Answer> getAnswers() {
+        return new ArrayList<Answer>(answers);
+    }
+
+    public void addAnswer(Answer answer)
+    {
+        if(answers.contains(answer)) {
+            return;
+        }
+        answers.add(answer);
+        answer.setAnswerer(this);
+    }
+
+    public void removeAnswer(Answer answer)
+    {
+        if(!answers.contains(answer)) {
+            return;
+        }
+        answers.remove(answer);
+        answer.setAnswerer(null);
+    }
+
+
 }
