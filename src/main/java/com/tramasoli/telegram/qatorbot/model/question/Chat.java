@@ -24,7 +24,7 @@ public class Chat implements Serializable{
 
     private String name;
 
-    @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "chat")//, cascade = CascadeType.ALL)
     private List<Question> questions = new ArrayList<>();
 
     public long getId() {
