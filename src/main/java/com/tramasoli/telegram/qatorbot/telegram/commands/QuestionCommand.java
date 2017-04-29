@@ -38,12 +38,11 @@ public class QuestionCommand extends BotCommand {
             asker.setUsername(user.getUserName());
             asker.setId(user.getId());
             question.setText(String.join(" ", Arrays.asList(strings)));
+            question.setChat(questionChat);
+            question.setUser(asker);
             em.getTransaction().begin();
             questionChat = em.merge(questionChat);
             asker = em.merge(asker);
-            question.setChat(questionChat);
-            question.setUser(asker);
-            em.persist(question);
             em.getTransaction().commit();
             em.close();
             SendMessage message = new SendMessage();
